@@ -1,28 +1,24 @@
-import { initializeApp } from 'firebase/app'
-import { getFirestore } from 'firebase/firestore'
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-// ------------------------------------------------------------
-// Create a free Firebase project (no credit card needed) at
-// https://console.firebase.google.com, add a "Web app" inside it,
-// and paste the config object it gives you below.
-//
-// This config is safe to keep public / commit to the repo — it only
-// identifies which project to talk to. The actual protection (so
-// strangers can't overwrite bookings or read patient lists in bulk)
-// comes from firestore.rules, which you paste into the Firestore
-// "Rules" tab in the same console. See README.md for the full steps.
-// ------------------------------------------------------------
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: 'YOUR_API_KEY',
-  authDomain: 'YOUR_PROJECT.firebaseapp.com',
-  projectId: 'YOUR_PROJECT',
-  storageBucket: 'YOUR_PROJECT.appspot.com',
-  messagingSenderId: 'YOUR_SENDER_ID',
-  appId: 'YOUR_APP_ID',
-}
+  apiKey: "AIzaSyBALZWq063GASSVaFQY2ETWAXpaCC781fw",
+  authDomain: "dr-naseri-dental.firebaseapp.com",
+  projectId: "dr-naseri-dental",
+  storageBucket: "dr-naseri-dental.firebasestorage.app",
+  messagingSenderId: "10933254727",
+  appId: "1:10933254727:web:ab1541fb11ba82d9d5cf62",
+  measurementId: "G-3D75PXS8H5"
+};
 
-const app = initializeApp(firebaseConfig)
-export const db = getFirestore(app)
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 // True once you've replaced the placeholder values above with a real
 // project's config. Booking code checks this so that, until Firebase is
