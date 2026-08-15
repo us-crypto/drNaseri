@@ -1,0 +1,27 @@
+rules_version = '2';
+
+// Paste this into Firebase Console → Firestore Database → Rules → Publish.
+//
+// How this actually prevents double-booking:
+// A slot's document ID is "<date>_<hour>", e.g. "2026-08-05_9". Firestore
+// only allows a "create" on a document ID that doesn't exist yet — the very
+// next attempt to write that same ID is classified as an "update", which
+// this file forbids. So whichever patient's request reaches the database
+// first wins the slot, atomically, with no server code required.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /bookings/{slotId} {
+      allow read: if true;
+
+      allow create: if request.resource.data.keys().hasAll(['name', 'phone', 'date', 'hour', 'createdAt'])
+                    && request.resource.data.name is string
+                    && request.resource.data.name.size() > 0
+                    && request.resource.data.phone is string
+                    && request.resource.data.phone.size() > 0
+                    && request.resource.data.date is string
+                    && request.resource.data.hour is int;
+
+      allow update, delete: if false;
+    }
+  }
+}
