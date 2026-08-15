@@ -1,0 +1,20 @@
+name: Monthly Patient Report
+
+on:
+  schedule:
+    - cron: '0 8 1 * *' # 08:00 UTC on the 1st of every month
+  workflow_dispatch: {} # lets you trigger it manually from the Actions tab to test
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-save firebase nodemailer
+      - run: node scripts/send-monthly-report.mjs
+        env:
+          GMAIL_USER: drnaseri2019@gmail.com
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
